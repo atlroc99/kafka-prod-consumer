@@ -9,6 +9,5 @@ import org.springframework.stereotype.Component;
 @Configuration
 @ConfigurationProperties(prefix = "app", ignoreInvalidFields = false)
 public class GeneralConfig {
-
     private String topic;
 }
