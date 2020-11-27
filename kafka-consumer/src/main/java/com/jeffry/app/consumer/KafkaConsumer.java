@@ -11,7 +11,7 @@ public class KafkaConsumer {
 
     private final Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
 
-    @KafkaListener(topics = "first-topic" )
+    @KafkaListener(topics = "multi-partition-topic", concurrency = "3")
     public void consume(String msg) {
         logger.info("Consuming message: {}", msg);
     }

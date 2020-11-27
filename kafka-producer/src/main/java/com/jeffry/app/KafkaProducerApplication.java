@@ -21,8 +21,11 @@ public class KafkaProducerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		for(int i = 0; i < 10; i++) {
-			kafkaProducer.sendMessage("My Message: " + i);
+		for(int i = 0; i < 50; i++) {
+			String msgKey = "emp-" + (i % 4);
+			String msg = "message : " + (i*4) + "with key: " + msgKey;
+			Thread.sleep(1500);
+			kafkaProducer.sendMessage(msgKey, msg);
 		}
 	}
 }
