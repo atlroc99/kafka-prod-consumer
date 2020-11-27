@@ -3,47 +3,42 @@ package com.jeffry.app.producer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeffry.app.configurations.GeneralConfig;
-import com.jeffry.app.entity.Employee;
+import com.jeffry.app.entity.Commodity;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import java.util.Objects;
 
 @Slf4j
 @Service
-@EnableScheduling
 public class KafkaProducer {
-
     private Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
-    private int counter = 0;
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private GeneralConfig config;
-    ObjectMapper objectMapper = new ObjectMapper();
+    final private KafkaTemplate<String, String> kafkaTemplate;
+    final private GeneralConfig config;
+    final private ObjectMapper objectMapper;
 
-    public KafkaProducer(KafkaTemplate kafkaTemplate, GeneralConfig config) {
+    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate, GeneralConfig config, ObjectMapper objectMapper) {
         this.kafkaTemplate = kafkaTemplate;
         this.config = config;
+        this.objectMapper = objectMapper;
     }
 
-    @Scheduled(fixedRate = 1500)
-    public void sendMessage() throws JsonProcessingException {
-        Employee employee = Employee.builder()
-                .id(UUID.randomUUID().toString())
-                .firstName("Omar")
-                .lastName("Zaman: ")
-                .createdOn(LocalDate.now())
-                .address("Lilburn")
-                .counter(counter ++)
-                .build();
-        logger.info("Sending message: {}: ", employee);
-        String empString = objectMapper.writeValueAsString(employee);
-        kafkaTemplate.send(config.getTopic(), empString);
+    public void send(Commodity commodity) {
+        String commodityAsString = null;
+        try{
+             commodityAsString = objectMapper.writeValueAsString(commodity);
+        }catch (Exception exception) {
+            exception.printStackTrace(System.err);
+        }
+
+        if (Objects.isNull(commodityAsString)) {
+            return;
+        }
+        logger.info("Commodity sending: {}", commodityAsString);
+        kafkaTemplate.send(config.getTopic(), commodityAsString);
     }
 }
