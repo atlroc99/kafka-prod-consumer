@@ -20,9 +20,11 @@ public class KafkaProducer {
         this.config = config;
     }
 
-    public void sendMessage(String msg) {
+    public void sendMessage(String key, String msg) {
         final String kafka_topic = config.getTopic();
-        logger.info("Topic name {} and Message {}: ", kafka_topic, msg);
-        kafkaTemplate.send(kafka_topic, msg);
+        logger.info("Message {} with key: {}", msg, key);
+
+//        kafkaTemplate.send(kafka_topic, msg);
+        kafkaTemplate.send(kafka_topic, key, msg);
     }
 }
