@@ -1,5 +1,6 @@
 app:
-  topic: 'multi-partition-topic'
+#  topic: 'multi-partition-topic'
+  topic: 'working-with-json'
 
 # creating a topic with multi-partitions : inside the config folder exec the commands with param below
 #  ./kafka-topics.sh

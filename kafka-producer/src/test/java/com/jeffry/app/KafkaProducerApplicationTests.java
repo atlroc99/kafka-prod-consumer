@@ -3,10 +3,10 @@ package com.jeffry.app;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class KafkaProducerApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 
