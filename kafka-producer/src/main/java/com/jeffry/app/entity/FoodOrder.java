@@ -8,26 +8,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Commodity {
-
-    private String ID;
-
-    @JsonProperty("commodity_name")
+public class FoodOrder {
     private String name;
+    private int amount;
 
-    @JsonProperty("commodity_price")
-    private BigDecimal price;
-
-    private int quantity;
-
-    @JsonProperty("created_on")
+    @JsonProperty("order-date")
     @JsonSerialize(using = CustomLocalDateSerializer.class)
-    private LocalDate createdOn;
+    private LocalDate orderDate;
 }
