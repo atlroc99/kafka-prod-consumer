@@ -3,7 +3,7 @@ app:
 spring:
   kafka:
     consumer:
-      auto-offset-reset: earliest
+      auto-offset-reset: latest
       group-id: 'default-spring-consumer'
 
 

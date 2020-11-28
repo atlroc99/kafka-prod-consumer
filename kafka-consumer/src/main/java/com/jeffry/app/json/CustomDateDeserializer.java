@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class CustomDateSerializer extends StdDeserializer<LocalDate> {
+public class CustomDateDeserializer extends StdDeserializer<LocalDate> {
 
     private static long serialVersionUID = 1L;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    protected CustomDateSerializer() {
+    protected CustomDateDeserializer() {
         super(LocalDate.class);
     }
 
