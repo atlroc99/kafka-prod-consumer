@@ -2,38 +2,33 @@ package com.jeffry.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jeffry.app.json.CustomDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Employee {
+public class Commodity {
 
-    private String id;
+    private String ID;
 
-    @JsonProperty("first-name")
-    private String firstName;
+    @JsonProperty("commodity_name")
+    private String name;
 
-    @JsonProperty("last-name")
-    private String lastName;
+    @JsonProperty("commodity_price")
+    private BigDecimal price;
 
-    private String address;
+    private int quantity;
 
-    @JsonProperty("createdOn")
+    @JsonProperty("created_on")
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private LocalDate createdOn;
-
-    @JsonProperty("lastModifiedOn")
-    @JsonDeserialize(using = CustomDateDeserializer.class)
-    private LocalDate lastModified;
-
-    @JsonProperty("msg-counter")
-    private int counter;
 }

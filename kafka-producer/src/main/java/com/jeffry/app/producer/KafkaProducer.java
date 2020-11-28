@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeffry.app.configurations.GeneralConfig;
 import com.jeffry.app.entity.Commodity;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -38,6 +39,7 @@ public class KafkaProducer {
         if (Objects.isNull(commodityAsString)) {
             return;
         }
+
         logger.info("Commodity sending: {}", commodityAsString);
         kafkaTemplate.send(config.getTopic(), commodityAsString);
     }
