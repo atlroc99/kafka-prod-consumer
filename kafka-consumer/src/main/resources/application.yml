@@ -5,8 +5,6 @@ spring:
     consumer:
       auto-offset-reset: latest
       group-id: 'default-spring-consumer'
-
-
 # we have set multiple (3) partition
 #we started 3 kafka consumer console that will be reading data distributedly from the partition
 #./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic multi-partition-topic --offset earliest --partition 0

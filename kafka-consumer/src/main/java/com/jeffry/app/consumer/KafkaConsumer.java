@@ -34,26 +34,29 @@ public class KafkaConsumer {
         }
     }
 
+    //topic with two partitions
     @KafkaListener(topics = "t_commodity", groupId = "cg-dashboard")
     public void dashboardCG(String msg) throws JsonProcessingException {
         logger.info("Received msg GroupID: cg-dashboard {}: ", msg);
         Commodity commodity = objectMapper.readValue(msg, Commodity.class);
-        printCommodityDetails(commodity, "cg-dashboard");
-    }
-
-    @KafkaListener(topics = "t_commodity", groupId = "cg-notification")
-    public void notificationCG(String msg) throws JsonProcessingException {
-        logger.info("Received msg GroupID: cg-notification {}: ", msg);
-        Commodity commodity = objectMapper.readValue(msg, Commodity.class);
-        printCommodityDetails(commodity, "cg-notification");
-    }
-
-    private void printCommodityDetails(Commodity commodity, String consumerGroup) {
-        logger.info("Commodity details - {}", consumerGroup);
+        logger.info("Commodity details - {}", "cg-notification");
         logger.info("ID: {}", commodity.getID());
         logger.info("Name: {}", commodity.getName());
         logger.info("Price: {}", commodity.getPrice());
         logger.info("Qty: {}", commodity.getQuantity());
         logger.info("Created_on: {}", commodity.getCreatedOn());
     }
+
+    @KafkaListener(topics = "t_commodity", groupId = "cg-notification")
+    public void notificationCG(String msg) throws JsonProcessingException {
+        logger.info("Received msg GroupID: cg-notification {}: ", msg);
+        Commodity commodity = objectMapper.readValue(msg, Commodity.class);
+        logger.info("Commodity details - {}", "cg-notification");
+        logger.info("ID: {}", commodity.getID());
+        logger.info("Name: {}", commodity.getName());
+        logger.info("Price: {}", commodity.getPrice());
+        logger.info("Qty: {}", commodity.getQuantity());
+        logger.info("Created_on: {}", commodity.getCreatedOn());
+    }
+
 }
